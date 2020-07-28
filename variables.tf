@@ -35,3 +35,9 @@ variable "vpc_private_subnets" {
   description = "List of private subnets."
   type        = list(string)
 }
+
+variable "tags" {
+  description = "A map of tags to add to all resources."
+  type        = map(string)
+  default     = {}
+}

@@ -8,6 +8,7 @@ EKS-ECR MODULE
 | ci-user | Name of ci-user. | `string` | `"tf-ci-user"` | no |
 | prefix | Repository name prefix. | `string` | `""` | no |
 | repositories | List of repositories names. | `set(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| tags | A map of tags to add to all resources. | `map(string)` | `{}` | no |
 | vpc\_cidr\_block | VPC cidr block whick will be allowed for ecr private link. | `list(string)` | n/a | yes |
 | vpc\_id | VPC id. | `string` | n/a | yes |
 | vpc\_private\_subnets | List of private subnets. | `list(string)` | n/a | yes |

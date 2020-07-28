@@ -4,7 +4,7 @@ provider "aws" {
 
 module "eks-ecr" {
   source = "../"
-  repositories = ["test1","test2"]
+  repositories = ["test2","test1","test3"]
   ci-user = "test-ci-user"
 }
 

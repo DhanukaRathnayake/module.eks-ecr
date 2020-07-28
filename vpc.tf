@@ -5,6 +5,10 @@ resource "aws_vpc_endpoint" "ecr-api" {
   vpc_endpoint_type   = "Interface"
   security_group_ids  = [aws_security_group.allow_tls.id]
   subnet_ids          = var.vpc_private_subnets
+  tags = merge(
+    var.tags,
+    { Name = "${var.prefix}-ecr-api-privatelink" }
+  )
 }
 
 resource "aws_vpc_endpoint" "ecr-dkr" {
@@ -14,6 +18,10 @@ resource "aws_vpc_endpoint" "ecr-dkr" {
   vpc_endpoint_type   = "Interface"
   security_group_ids  = [aws_security_group.allow_tls.id]
   subnet_ids          = var.vpc_private_subnets
+  tags = merge(
+    var.tags,
+    { Name = "${var.prefix}-ecr-dkr-privatelink" }
+  )
 }
 
 resource "aws_security_group" "allow_tls" {

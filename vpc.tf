@@ -7,7 +7,7 @@ resource "aws_vpc_endpoint" "ecr-api" {
   subnet_ids          = var.vpc_private_subnets
   tags = merge(
     var.tags,
-    { Name = "${var.prefix}-ecr-api-privatelink" }
+    { Name = var.prefix == "" ? "ecr-api-privatelink" : "${var.prefix}-ecr-api-privatelink" }
   )
 }
 
@@ -20,7 +20,7 @@ resource "aws_vpc_endpoint" "ecr-dkr" {
   subnet_ids          = var.vpc_private_subnets
   tags = merge(
     var.tags,
-    { Name = "${var.prefix}-ecr-dkr-privatelink" }
+    { Name = var.prefix == "" ? "ecr-dkr-privatelink" : "${var.prefix}-ecr-dkr-privatelink" }
   )
 }
 

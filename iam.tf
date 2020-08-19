@@ -50,6 +50,38 @@ data "aws_iam_policy_document" "ecr_all_deploy" {
   }
 }
 
+data "aws_iam_policy_document" "another-accounts-access" {
+  for_each = {
+    for k, r in var.repositories : k => r
+    if contains(keys(r), "share") && r["share"] == true
+  }
+  statement {
+    sid    = "allow-another-accounts-access"
+    effect = "Allow"
+    principals {
+      identifiers = each.value["accounts"]
+      type        = "AWS"
+    }
+    actions = [
+      "ecr:BatchGetImage",
+      "ecr:DescribeImages",
+      "ecr:DescribeRepositories",
+      "ecr:GetDownloadUrlForLayer"
+    ]
+
+  }
+}
+
+
+resource "aws_ecr_repository_policy" "another-accounts-access" {
+  for_each = {
+    for k, r in var.repositories : k => r
+    if contains(keys(r), "share") && r["share"] == true
+  }
+  repository = each.key
+  policy     = data.aws_iam_policy_document.another-accounts-access[each.key].json
+}
+
 
 
 

@@ -11,8 +11,10 @@ data "aws_subnet_ids" "all" {
 }
 
 module "eks-ecr" {
-  source              = "../"
-  repositories        = ["test2", "test1", "test3"]
+  source = "../"
+  repositories = { test-1 = { share = true, accounts = ["arn:aws:iam::691961290356:root", "arn:aws:iam::120826591627:root"] },
+    test-2 = { share = false, accounts = ["arn:aws:iam::691961290356:root"] } # this will not create repository policy
+  }
   ci-user             = "test-ci-user"
   aws_region          = "eu-central-1"
   vpc_id              = data.aws_vpc.default.id

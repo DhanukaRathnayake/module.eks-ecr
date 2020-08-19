@@ -1,7 +1,9 @@
 variable "repositories" {
   description = "List of repositories names."
-  type        = set(string)
-  default     = [""]
+  type = map(object({
+    share    = bool
+    accounts = list(string)
+  }))
 }
 
 variable "ci-user" {
@@ -40,4 +42,9 @@ variable "tags" {
   description = "A map of tags to add to all resources."
   type        = map(string)
   default     = {}
+}
+
+variable "share" {
+  type    = bool
+  default = false
 }

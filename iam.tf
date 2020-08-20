@@ -78,7 +78,7 @@ resource "aws_ecr_repository_policy" "another-accounts-access" {
     for k, r in var.repositories : k => r
     if contains(keys(r), "share") && r["share"] == true
   }
-  repository = each.key
+  repository = var.prefix == "" ? each.key : "${var.prefix}-${each.key}"
   policy     = data.aws_iam_policy_document.another-accounts-access[each.key].json
 }
 

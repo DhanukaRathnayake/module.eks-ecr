@@ -16,6 +16,7 @@ resource "aws_iam_access_key" "ci_deploy_user_key" {
 
 data "aws_iam_policy_document" "ecr_all_deploy" {
   statement {
+    sid    = "ecrecs"
     effect = "Allow"
 
     resources = [
@@ -46,6 +47,33 @@ data "aws_iam_policy_document" "ecr_all_deploy" {
       "iam:PassRole",
       "ecs:UpdateService",
       "ecs:DeregisterTaskDefinition"
+    ]
+  }
+  statement {
+    sid    = "s3list"
+    effect = "Allow"
+
+    resources = [
+      "*",
+    ]
+
+    actions = [
+      "s3:ListBucket",
+      "s3:CreateMultipartUpload",
+    ]
+  }
+  statement {
+    sid    = "s3write"
+    effect = "Allow"
+
+    resources = [
+      "${aws_s3_bucket.s3-gitlab-runner-cache.arn}/*"
+    ]
+
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject",
+      "s3:DeleteObject",
     ]
   }
 }
@@ -81,8 +109,3 @@ resource "aws_ecr_repository_policy" "another-accounts-access" {
   repository = var.prefix == "" ? each.key : "${var.prefix}-${each.key}"
   policy     = data.aws_iam_policy_document.another-accounts-access[each.key].json
 }
-
-
-
-
-

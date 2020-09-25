@@ -12,8 +12,43 @@ data "aws_subnet_ids" "all" {
 
 module "eks-ecr" {
   source = "../"
-  repositories = { test-1 = { share = true, accounts = ["arn:aws:iam::691961290356:root", "arn:aws:iam::120826591627:root"] },
-    test-2 = { share = false, accounts = ["arn:aws:iam::691961290356:root"] } # this will not create repository policy
+  repositories = {
+    test-1 = {
+      share = true,
+      // allow read-write access
+      accounts_rw = [
+        data.aws_caller_identity.current.arn,    // use current identity
+        "arn:aws:iam::123456789123:user/hubert", // allow read-write access for single user
+      ],
+      // allow read-only access
+      accounts_ro = [
+        "arn:aws:iam::123456789123:user/fry",    // allow read-only access for single user
+        "arn:aws:iam::123456789123:user/bender", // allow read-only access for single user
+      ]
+    },
+    test-2 = {
+      share = true,
+      // allow read-write access
+      accounts_rw = [
+        "arn:aws:iam::123456789123:group/developers", // allow read-write access for group of users
+      ],
+      accounts_ro = []
+    },
+    test-3 = {
+      share = true,
+      // allow read-write access
+      accounts_rw = [
+        "arn:aws:iam::456455465665:role/professor", // allow read-write access for role in another account
+      ],
+      accounts_ro = [
+        "arn:aws:iam::456455465665:role/student", // allow read-only access for role in another account
+      ]
+    },
+    test-4 = {
+      share       = false, # don't create policy
+      accounts_rw = [],
+      accounts_ro = []
+    }
   }
   prefix              = "test"
   ci-user             = "test-ci-user"

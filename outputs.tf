@@ -1,6 +1,7 @@
 output "ci-user-arn" {
   value = aws_iam_user.ci_deploy_user.arn
 }
+
 output "ci-user-id" {
   value = aws_iam_access_key.ci_deploy_user_key.id
 }

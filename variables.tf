@@ -1,8 +1,9 @@
 variable "repositories" {
   description = "List of repositories names."
   type = map(object({
-    share    = bool
-    accounts = list(string)
+    share       = bool
+    accounts_rw = list(string)
+    accounts_ro = list(string)
   }))
 }
 

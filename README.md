@@ -33,7 +33,7 @@ module "eks-ecr" {
 }
 ```
 
-For more detailed example please see the [examples](examples) directory.
+For more detailed example please see the [examples](examples) directory. For more information on how to setup IAM group permissions please see https://gitlab.lukapo.com/terraform/aws/module.iam-base/-/blob/master/README.md
 
 ## Inputs
 

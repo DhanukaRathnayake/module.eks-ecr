@@ -1,8 +1,13 @@
 # EKS-ECR module
 
-## Example
+## Usage
 
-For more complex code sample please see the [examples](examples).
+Remember that your users should be equipped with at least `ReadOnlyAccess` or something similar in order 
+to successfully access the ECR using a command line for example:
+
+    aws ecr get-login-password --region us-mars-1 | docker login --username AWS --password-stdin ABCDEFGHIJKL.dkr.ecr.eu-central-1.amazonaws.com
+
+will fail when you try to do that with an "empty" user (with no permissions) altough you are allowing the access here per a repository: 
 
 ```hcl-terraform
 module "eks-ecr" {
@@ -26,8 +31,9 @@ module "eks-ecr" {
   }
   
 }
-
 ```
+
+For more detailed example please see the [examples](examples) directory.
 
 ## Inputs
 

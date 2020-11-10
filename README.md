@@ -13,6 +13,7 @@ will fail when you try to do that with an "empty" user (with no permissions) alt
 module "eks-ecr" {
   source = "../"
   prefix              = "test" 
+  bucket              = "my-bucket-name" 
   ci-user             = "test-ci-user"
   aws_region          = "eu-central-1"
   vpc_id              = data.aws_vpc.default.id
@@ -45,6 +46,7 @@ For more detailed example please see the [examples](examples) directory. For mor
 | vpc\_id | VPC id. | `string` | n/a | yes |
 | vpc\_private\_subnets | List of private subnets. | `list(string)` | n/a | yes |
 | prefix | Repository name prefix. | `string` | `""` | no |
+| bucket | Custom S3 bucket name. | `string` | n/a | yes |
 | share | n/a | `bool` | `false` | no |
 | repositories | Map of repositories and their read-write access accounts/groups/users/roles. | <pre>map(object({<br>    share    = bool<br>    accounts_rw = list(string)<br>    accounts_ro = list(string)<br>  }))</pre> | n/a | yes |
 | tags | A map of tags to add to all resources. | `map(string)` | `{}` | no |
@@ -54,6 +56,8 @@ For more detailed example please see the [examples](examples) directory. For mor
 | Name | Description |
 |------|-------------|
 | ci-user-arn | n/a |
+| bucket | Bucket name |
+| bucket-arn | Bucket ARN |
 | ci-user-id | n/a |
 | ci-user-secret | n/a |
 | privatelink\_ecr\_api | n/a |

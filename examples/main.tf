@@ -51,6 +51,7 @@ module "eks-ecr" {
     }
   }
   prefix              = "test"
+  bucket              = "my-bucket-name"
   ci-user             = "test-ci-user"
   aws_region          = "eu-central-1"
   vpc_id              = data.aws_vpc.default.id

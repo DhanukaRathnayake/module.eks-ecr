@@ -32,7 +32,8 @@ output "ci-user-id" {
 }
 
 output "ci-user-secret" {
-  value = module.eks-ecr.ci-user-secret
+  value     = module.eks-ecr.ci-user-secret
+  sensitive = true
 }
 
 output "repositories_url" {

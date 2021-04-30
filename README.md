@@ -2,18 +2,18 @@
 
 ## Usage
 
-Remember that your users should be equipped with at least `ReadOnlyAccess` or something similar in order 
+Remember that your users should be equipped with at least `ReadOnlyAccess` or something similar in order
 to successfully access the ECR using a command line for example:
 
     aws ecr get-login-password --region us-mars-1 | docker login --username AWS --password-stdin ABCDEFGHIJKL.dkr.ecr.eu-central-1.amazonaws.com
 
-will fail when you try to do that with an "empty" user (with no permissions) altough you are allowing the access here per a repository: 
+will fail when you try to do that with an "empty" user (with no permissions) altough you are allowing the access here per a repository:
 
 ```hcl-terraform
 module "eks-ecr" {
   source = "../"
-  prefix              = "test" 
-  bucket              = "my-bucket-name" 
+  prefix              = "test"
+  bucket              = "my-bucket-name"
   ci-user             = "test-ci-user"
   aws_region          = "eu-central-1"
   vpc_id              = data.aws_vpc.default.id

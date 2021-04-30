@@ -2,14 +2,6 @@ output "ci-user-arn" {
   value = aws_iam_user.ci_deploy_user.arn
 }
 
-output "bucket" {
-  value = aws_s3_bucket.s3-gitlab-runner-cache.bucket
-}
-
-output "bucket-arn" {
-  value = aws_s3_bucket.s3-gitlab-runner-cache.arn
-}
-
 output "ci-user-id" {
   value = aws_iam_access_key.ci_deploy_user_key.id
 }

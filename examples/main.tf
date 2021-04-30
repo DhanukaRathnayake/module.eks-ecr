@@ -51,7 +51,6 @@ module "eks-ecr" {
     }
   }
   prefix              = "test"
-  bucket              = "my-bucket-name"
   ci-user             = "test-ci-user"
   aws_region          = "eu-central-1"
   vpc_id              = data.aws_vpc.default.id
@@ -68,7 +67,8 @@ output "ci-user-id" {
 }
 
 output "ci-user-secret" {
-  value = module.eks-ecr.ci-user-secret
+  value     = module.eks-ecr.ci-user-secret
+  sensitive = true
 }
 
 output "repositories_url" {

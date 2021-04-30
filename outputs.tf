@@ -8,6 +8,7 @@ output "ci-user-id" {
 
 output "ci-user-secret" {
   value = aws_iam_access_key.ci_deploy_user_key.secret
+  sensitive = true
 }
 
 output "repositories_url" {

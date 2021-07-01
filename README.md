@@ -42,9 +42,10 @@ For more detailed example please see the [examples](examples) directory. For mor
 |------|-------------|------|---------|:--------:|
 | aws\_region | AWS region. | `string` | n/a | yes |
 | ci-user | Name of ci-user. | `string` | `"tf-ci-user"` | no |
-| vpc\_cidr\_block | VPC cidr block whick will be allowed for ecr private link. | `list(string)` | n/a | yes |
-| vpc\_id | VPC id. | `string` | n/a | yes |
-| vpc\_private\_subnets | List of private subnets. | `list(string)` | n/a | yes |
+| connect\_vpc | Switch on/of the privatelink VPC connection | `bool` | false | no |
+| vpc\_cidr\_block | VPC cidr block whick will be allowed for ecr private link. | `list(string)` | `[]`| no |
+| vpc\_id | VPC id. | `string` | `""` | no |
+| vpc\_private\_subnets | List of private subnets. | `list(string)` | `[]` | no |
 | prefix | Repository name prefix. | `string` | `""` | no |
 | bucket | Custom S3 bucket name. | `string` | n/a | yes |
 | share | n/a | `bool` | `false` | no |

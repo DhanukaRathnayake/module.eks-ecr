@@ -53,6 +53,9 @@ module "eks-ecr" {
   prefix              = "test"
   ci-user             = "test-ci-user"
   aws_region          = "eu-central-1"
+  # enable privatelink connection to vpc:
+  connect_vpc         = true
+  # the following inputs are required only when `connect_vpc` = `true`:
   vpc_id              = data.aws_vpc.default.id
   vpc_cidr_block      = [data.aws_vpc.default.cidr_block]
   vpc_private_subnets = [tolist(data.aws_subnet_ids.all.ids)[0]]

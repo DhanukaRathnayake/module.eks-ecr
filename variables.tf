@@ -19,24 +19,33 @@ variable "prefix" {
   default     = ""
 }
 
-variable "vpc_id" {
-  description = "VPC id."
-  type        = string
-}
-
 variable "aws_region" {
   description = "AWS region."
   type        = string
 }
 
+variable "connect_vpc" {
+  description = "Connect VPC using a private link."
+  type        = bool
+  default     = false
+}
+
+variable "vpc_id" {
+  description = "VPC id."
+  type        = string
+  default     = ""
+}
+
 variable "vpc_cidr_block" {
   description = "VPC cidr block whick will be allowed for ecr private link."
   type        = list(string)
+  default     = []
 }
 
 variable "vpc_private_subnets" {
   description = "List of private subnets."
   type        = list(string)
+  default     = []
 }
 
 variable "tags" {

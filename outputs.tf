@@ -16,9 +16,9 @@ output "repositories_url" {
 }
 
 output "privatelink_ecr_api" {
-  value = aws_vpc_endpoint.ecr-api.dns_entry
+  value = length(aws_vpc_endpoint.ecr-api.*.dns_entry) > 0 ? element(concat(aws_vpc_endpoint.ecr-api.*.dns_entry, list("")), 0) : ""
 }
 
 output "privatelink_ecr_dkr" {
-  value = aws_vpc_endpoint.ecr-dkr.dns_entry
+  value = length(aws_vpc_endpoint.ecr-dkr.*.dns_entry) > 0 ? element(concat(aws_vpc_endpoint.ecr-dkr.*.dns_entry, list("")), 0) : ""
 }

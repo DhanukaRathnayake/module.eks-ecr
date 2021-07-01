@@ -1,10 +1,11 @@
 resource "aws_vpc_endpoint" "ecr-api" {
+  count               = var.connect_vpc ? 1 : 0
   vpc_id              = var.vpc_id
   service_name        = "com.amazonaws.${var.aws_region}.ecr.api"
   private_dns_enabled = true
   vpc_endpoint_type   = "Interface"
-  security_group_ids  = [aws_security_group.allow_tls.id]
-  subnet_ids          = var.vpc_private_subnets
+  security_group_ids  = var.connect_vpc ? aws_security_group.allow_tls.*.id : []
+  subnet_ids          = var.connect_vpc ? var.vpc_private_subnets : []
   tags = merge(
     var.tags,
     { Name = var.prefix == "" ? "ecr-api-privatelink" : "${var.prefix}-ecr-api-privatelink" }
@@ -12,11 +13,12 @@ resource "aws_vpc_endpoint" "ecr-api" {
 }
 
 resource "aws_vpc_endpoint" "ecr-dkr" {
+  count               = var.connect_vpc ? 1 : 0
   vpc_id              = var.vpc_id
   service_name        = "com.amazonaws.${var.aws_region}.ecr.dkr"
   private_dns_enabled = true
   vpc_endpoint_type   = "Interface"
-  security_group_ids  = [aws_security_group.allow_tls.id]
+  security_group_ids  = aws_security_group.allow_tls.*.id
   subnet_ids          = var.vpc_private_subnets
   tags = merge(
     var.tags,
@@ -25,6 +27,7 @@ resource "aws_vpc_endpoint" "ecr-dkr" {
 }
 
 resource "aws_security_group" "allow_tls" {
+  count       = var.connect_vpc ? 1 : 0
   name        = "ecr_privatelink_allow_tls"
   description = "Allow TLS inbound traffic for ecr privatelink"
   vpc_id      = var.vpc_id

@@ -58,3 +58,8 @@ variable "share" {
   type    = bool
   default = false
 }
+
+variable "tag_mutability" {
+  type    = string
+  default = "IMMUTABLE"
+}

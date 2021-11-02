@@ -3,5 +3,5 @@ resource "aws_ecr_repository" "repositories" {
 
   name = var.prefix == "" ? each.key : "${var.prefix}-${each.key}"
 
-  image_tag_mutability = "IMMUTABLE"
+  image_tag_mutability = var.tag_mutability
 }
